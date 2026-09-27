@@ -259,18 +259,22 @@
             if (lineIndex >= lines.length) {
 
                 // Wait after the complete paragraph is finished
-                setTimeout(function() {
+               setTimeout(function() {
 
-                    // Fade the ENTIRE paragraph out together
-                    page.fadeOut(800, function() {
+    // Keep the final birthday message visible
+    if (currentPage === pages.length - 1) {
+        return;
+    }
 
-                        // Move to next page ONLY after fade is complete
-                        currentPage++;
-                        showPage();
+    // Fade the ENTIRE paragraph out together
+    page.fadeOut(800, function() {
 
-                    });
+        currentPage++;
+        showPage();
 
-                }, 2500);
+    });
+
+}, 2500);
 
                 return;
             }
