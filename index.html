@@ -2,7 +2,7 @@
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>HBD love</title>	    
+    <title>For K's Birthday</title>	    
     <link type="text/css" rel="stylesheet" href="file/default.css">
     <script type="text/javascript" src="file/jquery.min.js"></script>
     <script type="text/javascript" src="file/jscex.min.js"></script>
@@ -13,12 +13,20 @@
     <script type="text/javascript" src="file/jscex-async-powerpack.min.js"></script>
     <script type="text/javascript" src="file/function.js" charset="utf-8"></script>
     <script type="text/javascript" src="file/love.js" charset="utf-8"></script>
-    <script>
-        function playAudio() {
-            var audio = document.getElementById("myAudio");
-            audio.play();
-        }
-    </script>
+   <script>
+    function playAudio() {
+        var audio = document.getElementById("myAudio");
+        audio.play();
+    }
+</script>
+
+<style>
+    .birthday-page {
+        display: none;
+        width: 100%;
+    }
+</style>
+
 </head>
 <body>
     <div id="main">
@@ -29,39 +37,53 @@
         </audio>
         <div id="wrap">
             <div id="text">
-                <div id="code">
+               <div id="code">
 
-    <span class="say">When something feels important,</span><br>
-    <span class="say">I don't leave it to chance. 😊</span><br>
-    <span class="say">So instead of just texting casually...</span><br>
-    <span class="say">I decided to design this properly. 🙇🏻‍♂️</span><br>
-    <span class="say">No random lines. No half-effort moves.</span><br>
-    <span class="say">Because some people deserve more than ordinary. ✨</span><br>
-    <span class="say">And I think you're one of them. ❤️</span><br><br>
+    <div class="birthday-page">
+        <span class="say">When something feels important,</span><br>
+        <span class="say">I don't leave it to chance. 😊</span><br>
+        <span class="say">So instead of just texting casually...</span><br>
+        <span class="say">I decided to design this properly. 🙇🏻‍♂️</span><br>
+        <span class="say">No random lines. No half-effort moves.</span><br>
+        <span class="say">Because some people deserve more than ordinary. ✨</span><br>
+        <span class="say">And I think you're one of them. ❤️</span>
+    </div>
 
-    <span class="say">You know what's funny?</span><br>
-    <span class="say">We never even met in person...</span><br>
-    <span class="say">yet somehow, you became someone I'll remember. 🌻</span><br><br>
+    <div class="birthday-page">
+        <span class="say"><b>You know what's funny?</b></span><br><br>
+        <span class="say">We never even met in person...</span><br>
+        <span class="say">yet somehow, you became</span><br>
+        <span class="say">someone I'll always remember. 🌻</span>
+    </div>
 
-    <span class="say">A lot has changed since then,</span><br>
-    <span class="say">but I'll always be grateful for the good moments. ❤️</span><br><br>
+    <div class="birthday-page">
+        <span class="say"><b>A lot has changed since then.</b></span><br><br>
+        <span class="say">But I'll always be grateful</span><br>
+        <span class="say">for the good moments we had. ❤️</span>
+    </div>
 
-    <span class="say">Today isn't about the past.</span><br>
-    <span class="say">It's simply about wishing you</span><br>
-    <span class="say">a beautiful birthday. 🎂✨</span><br><br>
+    <div class="birthday-page">
+        <span class="say"><b>Today isn't about the past.</b></span><br><br>
+        <span class="say">It's just about wishing you</span><br>
+        <span class="say">a beautiful birthday. 🎂✨</span>
+    </div>
 
-    <span class="say">I hope you're happy.</span><br>
-    <span class="say">I hope you're doing well.</span><br>
-    <span class="say">And I hope this year brings you</span><br>
-    <span class="say">everything you're wishing for. 🌻</span><br><br>
+    <div class="birthday-page">
+        <span class="say">I hope you're happy.</span><br>
+        <span class="say">I hope you're doing well.</span><br><br>
+        <span class="say">And I hope this year brings you</span><br>
+        <span class="say">everything you're wishing for. 🌻</span>
+    </div>
 
-    <span class="say"><b>Happy Birthday, Kinleyy! 🎂❤️</b></span><br>
-    <span class="say">I hope this little surprise makes you smile.</span><br><br>
-    <span class="say">Take care. 🫶🏻</span><br>
-    <span class="say">— Atharva</span>
+    <div class="birthday-page">
+        <span class="say"><b>Happy Birthday, Kinleyy! 🎂❤️</b></span><br><br>
+        <span class="say">I hope this little surprise</span><br>
+        <span class="say">makes you smile.</span><br><br>
+        <span class="say">Take care. 🫶🏻</span><br><br>
+        <span class="say">— Atharva</span>
+    </div>
 
 </div>
-            </div>
             <div id="clock-box">
                 <span id="clock">577 days 0 hours 0 minutes 0 seconds</span> <!-- Change to "6940 days..." if needed -->
             </div>
@@ -187,16 +209,85 @@
             canvas.css("background", "none");
         }));
 
-        var textAnimate = eval(Jscex.compile("async", function () {
-            $("#code").show().typewriter();
-        }));
-	    
+       function textAnimate() {
+
+    $("#code").show();
+
+    var pages = $(".birthday-page");
+    var currentPage = 0;
+
+    pages.hide();
+
+    function showPage() {
+
+        if (currentPage >= pages.length) {
+            return;
+        }
+
+        var page = $(pages[currentPage]);
+
+        page.show();
+
+        var lines = page.find(".say");
+        var lineIndex = 0;
+
+        function typeLine() {
+
+            if (lineIndex >= lines.length) {
+
+                setTimeout(function () {
+
+                    page.fadeOut(500, function () {
+                        currentPage++;
+                        showPage();
+                    });
+
+                }, 2500);
+
+                return;
+            }
+
+            var line = $(lines[lineIndex]);
+            var originalText = line.text();
+
+            line.text("");
+
+            var charIndex = 0;
+
+            function typeCharacter() {
+
+                if (charIndex < originalText.length) {
+
+                    line.text(
+                        line.text() + originalText.charAt(charIndex)
+                    );
+
+                    charIndex++;
+
+                    setTimeout(typeCharacter, 35);
+
+                } else {
+
+                    lineIndex++;
+
+                    setTimeout(typeLine, 100);
+                }
+            }
+
+            typeCharacter();
+        }
+
+        typeLine();
+    }
+
+    showPage();
+}
         var runAsync = eval(Jscex.compile("async", function () {
             $await(seedAnimate());
             $await(growAnimate());
             $await(flowAnimate());
             $await(moveAnimate());
-            textAnimate().start();
+            textAnimate();
         }));
 
         runAsync().start();
