@@ -21,12 +21,37 @@
 </script>
 
 <style>
+    body {
+        overflow: hidden;
+    }
+
+  #wrap {
+    margin-top: -80px !important;
+}
+
+#canvas {
+    position: relative;
+    top: -180px;
+}
+    #text {
+    width: 480px !important;
+    left: 40px !important;
+    top: 220px !important;
+    line-height: 2 !important;
+}
+
+.birthday-page .say {
+    display: inline-block;
+    margin-bottom: 4px;
+}
     .birthday-page {
         display: none;
         width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 </style>
-
 </head>
 <body>
     <div id="main">
@@ -41,46 +66,40 @@
 
     <div class="birthday-page">
         <span class="say">When something feels important,</span><br>
-        <span class="say">I don't leave it to chance. 😊</span><br>
+        <span class="say">I don't leave it to chance. 😊</span><br><br>
         <span class="say">So instead of just texting casually...</span><br>
-        <span class="say">I decided to design this properly. 🙇🏻‍♂️</span><br>
+        <span class="say">I decided to design this properly. 🙇🏻‍♂️</span><br><br>
         <span class="say">No random lines. No half-effort moves.</span><br>
         <span class="say">Because some people deserve more than ordinary. ✨</span><br>
         <span class="say">And I think you're one of them. ❤️</span>
     </div>
 
     <div class="birthday-page">
-        <span class="say"><b>You know what's funny?</b></span><br><br>
-        <span class="say">We never even met in person...</span><br>
-        <span class="say">yet somehow, you became</span><br>
-        <span class="say">someone I'll always remember. 🌻</span>
-    </div>
+    <span class="say">You know what's funny?</span><br>
+    <span class="say">We never even met in person...</span><br><br>
+    <span class="say">yet somehow, you became</span><br>
+    <span class="say">someone I'll always remember. 🌻</span><br><br>
+    <span class="say">A lot has changed since then.</span><br>
+    <span class="say">But I'll always be grateful</span><br>
+    <span class="say">for the good moments we had. ❤️</span>
+</div>
 
     <div class="birthday-page">
-        <span class="say"><b>A lot has changed since then.</b></span><br><br>
-        <span class="say">But I'll always be grateful</span><br>
-        <span class="say">for the good moments we had. ❤️</span>
-    </div>
+    <span class="say">But today isn't about the past.</span><br>
+    <span class="say">It's just about wishing you</span><br>
+    <span class="say">a beautiful birthday. 🎂✨</span><br><br>
+    <span class="say">I hope you're happy.</span><br>
+    <span class="say">I hope you're doing well.</span><br>
+    <span class="say">And I hope the days ahead bring you</span><br>
+    <span class="say">everything you're wishing for. 🌻</span>
+</div>
 
     <div class="birthday-page">
-        <span class="say"><b>Today isn't about the past.</b></span><br><br>
-        <span class="say">It's just about wishing you</span><br>
-        <span class="say">a beautiful birthday. 🎂✨</span>
-    </div>
-
-    <div class="birthday-page">
-        <span class="say">I hope you're happy.</span><br>
-        <span class="say">I hope you're doing well.</span><br><br>
-        <span class="say">And I hope this year brings you</span><br>
-        <span class="say">everything you're wishing for. 🌻</span>
-    </div>
-
-    <div class="birthday-page">
-        <span class="say"><b>Happy Birthday, Kinleyy! 🎂❤️</b></span><br><br>
+        <span class="say"><br>Happy Birthday, Kinleyy! 🎂❤️</br></span><br><br>
         <span class="say">I hope this little surprise</span><br>
         <span class="say">makes you smile.</span><br><br>
         <span class="say">Take care. 🫶🏻</span><br><br>
-        <span class="say">— Atharva</span>
+        <span class="say">— Atharv</span>
     </div>
 
 </div>
@@ -201,7 +220,7 @@
                 $await(Jscex.Async.sleep(10));
             }
             foot.draw();
-            tree.snapshot("p2", 500, 0, 610, 680);
+            tree.snapshot("p2", 500, 120, 610, 680);
 
             canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
             canvas.css("background", "#ffe");
@@ -209,37 +228,46 @@
             canvas.css("background", "none");
         }));
 
-       function textAnimate() {
-
+      function textAnimate() {
     $("#code").show();
 
     var pages = $(".birthday-page");
     var currentPage = 0;
 
+    // Completely clear every page before starting
     pages.hide();
+    pages.find(".say").hide();
 
     function showPage() {
-
         if (currentPage >= pages.length) {
             return;
         }
 
         var page = $(pages[currentPage]);
 
+        // Make absolutely sure every previous page is gone
+        pages.hide();
+        pages.find(".say").hide();
+
+        // Show only the current page
         page.show();
 
         var lines = page.find(".say");
         var lineIndex = 0;
 
         function typeLine() {
-
             if (lineIndex >= lines.length) {
 
-                setTimeout(function () {
+                // Wait after the complete paragraph is finished
+                setTimeout(function() {
 
-                    page.fadeOut(500, function () {
+                    // Fade the ENTIRE paragraph out together
+                    page.fadeOut(800, function() {
+
+                        // Move to next page ONLY after fade is complete
                         currentPage++;
                         showPage();
+
                     });
 
                 }, 2500);
@@ -248,7 +276,17 @@
             }
 
             var line = $(lines[lineIndex]);
-            var originalText = line.text();
+
+            // Start this line completely invisible
+            line.text("");
+            line.show();
+
+            var originalText = line.attr("data-text");
+
+            if (!originalText) {
+                originalText = line.text();
+                line.attr("data-text", originalText);
+            }
 
             line.text("");
 
@@ -259,18 +297,19 @@
                 if (charIndex < originalText.length) {
 
                     line.text(
-                        line.text() + originalText.charAt(charIndex)
+                        originalText.substring(0, charIndex + 1)
                     );
 
                     charIndex++;
 
-                    setTimeout(typeCharacter, 35);
+                    setTimeout(typeCharacter, 90);
 
                 } else {
 
                     lineIndex++;
 
-                    setTimeout(typeLine, 100);
+                    setTimeout(typeLine, 500);
+
                 }
             }
 
@@ -280,9 +319,16 @@
         typeLine();
     }
 
+    // Store the original text and make EVERYTHING blank
+    pages.find(".say").each(function() {
+        var line = $(this);
+        line.attr("data-text", line.text());
+        line.text("");
+    });
+
     showPage();
 }
-        var runAsync = eval(Jscex.compile("async", function () {
+var runAsync = eval(Jscex.compile("async", function () {
             $await(seedAnimate());
             $await(growAnimate());
             $await(flowAnimate());
